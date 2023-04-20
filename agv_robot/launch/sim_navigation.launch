@@ -11,12 +11,14 @@
         <rosparam file="$(find agv_robot)/config/robot.yaml" command="load" />
         <param name="sim" value="true"/>
     </node>
-<!-- 
-    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
-        <param name="use_gui" value="false"/>
-    </node>
 
-    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+
+
+    <!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+        <param name="use_gui" value="false"/>
+    </node> -->
+
+    <!-- <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
         <param name="publish_frequency" type="double" value="20.0" />
     </node> -->
 
@@ -32,7 +34,7 @@
       <rosparam file="$(find agv_robot)/param/dwa_local_planner_params_burger.yaml" command="load" />
     </node>
 
-    <node pkg="fake_localization" type="fake_localization" name="fake_localization" output="screen" />
+    <!-- <node pkg="fake_localization" type="fake_localization" name="fake_localization" output="screen" /> -->
 
     <node pkg="tf" type="static_transform_publisher" name="map_odom_broadcaster" args="0 0 0 0 0 0 /map /odom 100" />
 
@@ -54,12 +56,18 @@
 
     <!--spawner-->
     <!--controller_manager node-->
-    <node name="forklift_controller_spawner" 
+    <!-- <node name="forklift_controller_spawner" 
           pkg="controller_manager" 
           type="spawner"
           args="forklift_joint_state_controller
                 forklift_fork_controller
-                forklift_drive_controller"/>
+                forklift_drive_controller"/> -->
+
+    <node name="forklift_controller_spawner" 
+        pkg="controller_manager" 
+        type="spawner"
+        args="forklift_joint_state_controller
+        forklift_fork_controller"/>
                 
     <node name="rqt_robot_steering" 
           pkg="rqt_robot_steering"

@@ -71,7 +71,7 @@ class DiffController(Controller):
         self.max_accel = int(self.accel_limit*self.ticks_meter/self.rate)
 
         # output for joint states publisher
-        self.joint_names = ["base_l_wheel_joint","base_r_wheel_joint"]
+        self.joint_names = ['left_actuated_wheel_joint', 'right_actuated_wheel_joint']
         self.joint_positions = [0,0]
         self.joint_velocities = [0,0]
 
@@ -90,7 +90,7 @@ class DiffController(Controller):
         self.then = rospy.Time.now()    # time for determining dx/dy
 
         # subscriptions
-        rospy.Subscriber("cmd_vel", Twist, self.cmdVelCb)
+        rospy.Subscriber("forklift_drive_controller/cmd_vel", Twist, self.cmdVelCb)
         self.odomPub = rospy.Publisher("odom", Odometry, queue_size=5)
         self.odomBroadcaster = TransformBroadcaster()
 		

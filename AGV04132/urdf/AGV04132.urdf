@@ -208,10 +208,10 @@
       effort="0"
       velocity="0.05" />
     <dynamics damping="0.7" friction="0.5"/>
-    <pid>
+    <!-- <pid>
       <pid>100.0 10 0 </pid>
       <i_clamp>1.0</i_clamp>
-    </pid>
+    </pid> -->
   </joint>
 
 
@@ -537,10 +537,10 @@
     <!-- lidar calling in gazebo-->
   <gazebo reference="liadar_link">
       <material>Gazebo/Blue</material>
-      <turnGravityOff>true</turnGravityOff>
+      <turnGravityOff>false</turnGravityOff>
       <sensor type="ray" name="head_hokuyo_sensor">
           <pose>0.025 0 0 0 0 0</pose>
-          <visualize>true</visualize>
+          <visualize>false</visualize>
           <ray_alpha>0.1</ray_alpha>
           <update_rate>40</update_rate>
           <ray>

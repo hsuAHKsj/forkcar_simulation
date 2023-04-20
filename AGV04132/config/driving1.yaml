@@ -5,7 +5,7 @@ left_wheel: ['left_actuated_wheel_joint']
 right_wheel: ['right_actuated_wheel_joint']
 
 wheel_separation: 0.6
-wheel_radius: 0.09
+wheel_radius: 0.18
 
 enable_odom_tf: true
 odom_frame_id: '/odom'
