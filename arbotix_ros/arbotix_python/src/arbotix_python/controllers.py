@@ -39,7 +39,7 @@ class Controller:
     def __init__(self, device, name):
         self.name = name
         self.device = device
-        self.fake = device.fake
+        self.fake = False
         self.pause = False
 
         # output for joint states publisher
