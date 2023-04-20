@@ -1,0 +1,686 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="AGV04132">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.066291 -0.0017733 0.2351"
+        rpy="0 0 0" />
+      <mass
+        value="10.832" />
+      <inertia
+        ixx="0.54185"
+        ixy="0.00068644"
+        ixz="-0.011381"
+        iyy="0.20496"
+        iyz="0.0023083"
+        izz="0.40961" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://AGV04132/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://AGV04132/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="left_actuated_wheel_Link">
+    <inertial>
+      <origin
+        xyz="8.01539112860183E-11 -0.0290000047995962 1.00781702427888E-10"
+        rpy="0 0 0" />
+      <mass
+        value="0.623375024004259" />
+      <inertia
+        ixx="0.00218383955294176"
+        ixy="2.82707735071877E-13"
+        ixz="3.08386316663336E-09"
+        iyy="0.00399973970018724"
+        iyz="2.29368724589417E-14"
+        izz="0.00218352152437162" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://AGV04132/meshes/left_actuated_wheel_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://AGV04132/meshes/left_actuated_wheel_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_actuated_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="0 0.303 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="left_actuated_wheel_Link" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+  <link
+    name="right_actuated_wheel_link">
+    <inertial>
+      <origin
+        xyz="8.01539667971696E-11 0.0290000047995962 -1.0078156365001E-10"
+        rpy="0 0 0" />
+      <mass
+        value="0.62337502400426" />
+      <inertia
+        ixx="0.00218383955294177"
+        ixy="-2.82709515164589E-13"
+        ixz="-3.08386316712581E-09"
+        iyy="0.00399973970018725"
+        iyz="2.29401615622903E-14"
+        izz="0.00218352152437162" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://AGV04132/meshes/right_actuated_wheel_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://AGV04132/meshes/right_actuated_wheel_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_actuated_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="0 -0.303 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="right_actuated_wheel_link" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+  <link
+    name="fork_link">
+    <inertial>
+      <origin
+        xyz="0.15316 -7.6109E-05 -0.09274"
+        rpy="0 0 0" />
+      <mass
+        value="3.0925" />
+      <inertia
+        ixx="0.051652"
+        ixy="3.5814E-07"
+        ixz="0.012075"
+        iyy="0.071376"
+        iyz="8.7888E-08"
+        izz="0.10101" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://AGV04132/meshes/fork_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://AGV04132/meshes/fork_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fork_joint"
+    type="prismatic">
+    <origin
+      xyz="0.145 0 0.21067"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="fork_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0."
+      upper="0.2"
+      effort="0"
+      velocity="0.05" />
+    <dynamics damping="0.7" friction="0.5"/>
+    <pid>
+      <pid>100.0 10 0 </pid>
+      <i_clamp>1.0</i_clamp>
+    </pid>
+  </joint>
+
+
+  <link name="camera_Link">
+    <inertial>
+      <origin
+        xyz="0.000168500877015532 6.80373883726769E-05 -0.0324046873984643"
+        rpy="0 0 0" />
+      <mass
+        value="1e-5" />
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+            <geometry>
+                <box size="0.05 0.05 0.05" />
+            </geometry>
+      <material
+        name="Blue">
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+            <geometry>
+                <box size="0.05 0.05 0.05" />
+            </geometry>
+    </collision>
+  </link>
+  <joint
+    name="camera_link_joint"
+    type="fixed">
+    <origin
+      xyz="0.0872860492302612 0 0.0545877352644308"
+      rpy="0 0 0" />
+    <parent
+      link="fork_link" />
+    <child
+      link="camera_Link" />
+  </joint>
+  <link
+    name="liadar_link">
+    <inertial>
+      <origin
+        xyz="0.0539558801128225 0.000239523932522526 -0.068864290839622"
+        rpy="0 0 0" />
+      <mass
+        value="0.00188264379755462" />
+      <inertia
+        ixx="5.08572975763605E-08"
+        ixy="-1.29897252751499E-10"
+        ixz="1.5870589812105E-10"
+        iyy="8.03361802698923E-08"
+        iyz="6.10410719664548E-12"
+        izz="7.90690114029389E-08" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://AGV04132/meshes/liadar_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://AGV04132/meshes/liadar_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="liadar_joint"
+    type="fixed">
+    <origin
+      xyz="0.067269 0 1.2965"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="liadar_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="left_support_Link">
+    <inertial>
+      <origin
+        xyz="-0.00986110472071291 -0.000462260599245812 -0.0286779778393793"
+        rpy="0 0 0" />
+      <mass
+        value="0.431891023893567" />
+      <inertia
+        ixx="0.000157390240069569"
+        ixy="-1.6354440914801E-09"
+        ixz="-5.981811898461E-06"
+        iyy="0.000170340527585018"
+        iyz="3.14216703784786E-08"
+        izz="0.000200205385960138" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://AGV04132/meshes/left_support_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.866666666666667 0.866666666666667 0.890196078431372 1" />
+      </material>
+      <gazebo>
+        <material>Green</material>
+      </gazebo>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://AGV04132/meshes/left_support_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_support_joint"
+    type="continuous">
+    <origin
+      xyz="0.25844 0.14017 -0.020384"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="left_support_Link" />
+    <axis
+      xyz="0 0 -1" />
+    <dynamics damping="0.1" friction="0.01"/>
+    <sensor name="left_support_joint_sensor" type="joint_state"/>
+  </joint>
+  <link
+    name="left_smallwheel_link">
+    <inertial>
+      <origin
+        xyz="0.0084055 -0.020743 0.016355"
+        rpy="0 0 0" />
+      <mass
+        value="0.43189" />
+      <inertia
+        ixx="0.00015739"
+        ixy="-1.6354E-09"
+        ixz="-5.9818E-06"
+        iyy="0.00017034"
+        iyz="3.1422E-08"
+        izz="0.00020021" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://AGV04132/meshes/left_smallwheel_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://AGV04132/meshes/left_smallwheel_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_smallwheel_joint"
+    type="continuous">
+    <origin
+      xyz="-0.0182666012400155 0.0207185149008818 -0.0450326723363207"
+      rpy="0 0 0" />
+    <parent
+      link="left_support_Link" />
+    <child
+      link="left_smallwheel_link" />
+    <axis
+      xyz="0 1 0" />
+    <dynamics damping="0.1" friction="0.01"/>
+    <sensor name="left_smallwheel_joint_sensor" type="joint_state"/>
+  </joint>
+  <link
+    name="right_support_link">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.431891023893567" />
+      <inertia
+        ixx="0.000157390240069569"
+        ixy="-1.6354440914801E-09"
+        ixz="-5.981811898461E-06"
+        iyy="0.000170340527585018"
+        iyz="3.14216703784786E-08"
+        izz="0.000200205385960138" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://AGV04132/meshes/right_support_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://AGV04132/meshes/right_support_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_support_joint"
+    type="continuous">
+    <origin
+      xyz="0.259811197541686 -0.141200521014536 -0.0203839583452896"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="right_support_link" />
+    <axis
+      xyz="0 0 -1" />
+    <dynamics damping="0.1" friction="0.01"/>
+    <sensor name="right_support_joint_sensor" type="joint_state"/>
+  </joint>
+  <link
+    name="right_smallwheel_link">
+    <inertial>
+      <origin
+        xyz="0.00840549651925082 0.0212074613469874 0.0163546944969295"
+        rpy="0 0 0" />
+      <mass
+        value="0.431891023893566" />
+      <inertia
+        ixx="0.000157390240069569"
+        ixy="-1.63544409148318E-09"
+        ixz="-5.98181189846086E-06"
+        iyy="0.000170340527585018"
+        iyz="3.14216703784221E-08"
+        izz="0.000200205385960138" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://AGV04132/meshes/right_smallwheel_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://AGV04132/meshes/right_smallwheel_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_smallwheel_joint"
+    type="continuous">
+    <origin
+      xyz="-0.0182666012400272 -0.0212314850991181 -0.0450326723363171"
+      rpy="0 0 0" />
+    <parent
+      link="right_support_link" />
+    <child
+      link="right_smallwheel_link" />
+    <axis
+      xyz="0 -1 0" />
+    <dynamics damping="0.1" friction="0.01"/>
+    <sensor name="right_smallwheel_joint_sensor" type="joint_state"/>
+  </joint>
+
+  
+    <!-- calling parts in gazebo-->
+    <!-- lidar calling in gazebo-->
+  <gazebo reference="liadar_link">
+      <material>Gazebo/Blue</material>
+      <turnGravityOff>true</turnGravityOff>
+      <sensor type="ray" name="head_hokuyo_sensor">
+          <pose>0.025 0 0 0 0 0</pose>
+          <visualize>true</visualize>
+          <ray_alpha>0.1</ray_alpha>
+          <update_rate>40</update_rate>
+          <ray>
+              <scan>
+                  <!-- 32 scan lines -->
+                  <horizontal>
+                      <samples>100</samples>
+                      <resolution>0.5</resolution>
+                      <min_angle>-1.5708</min_angle>
+                      <max_angle>1.5708</max_angle>
+                  </horizontal>
+                  <vertical>
+                      <samples>32</samples>
+                      <resolution>0.5</resolution>
+                      <min_angle>-1.5</min_angle>
+                      <max_angle>0</max_angle>
+                  </vertical>
+              </scan>
+              <range>
+                  <min>0.5</min>
+                  <max>8.0</max>
+                  <resolution>0.02</resolution>
+              </range>
+          </ray>
+          <plugin name="gazebo_ros_laser" filename="libgazebo_ros_laser.so">
+              <topicName>/scan</topicName>
+              <frameName>liadar_link</frameName>
+              <alwaysOn>true</alwaysOn>
+              <pointCloudTopicName>/point_cloud</pointCloudTopicName>
+              <pointCloudCutoff>false</pointCloudCutoff>
+              <pointCloudMinRange>0.5</pointCloudMinRange>
+              <pointCloudMaxRange>8.0</pointCloudMaxRange>
+              <pointCloudTopicType>sensor_msgs/PointCloud2</pointCloudTopicType>
+          </plugin>
+      </sensor>
+  </gazebo>
+
+ 	<gazebo reference="camera_Link">
+        <sensor type="camera" name="camera1">
+            <update_rate>30.0</update_rate>
+            <camera name="head">
+                <horizontal_fov>1.3962634</horizontal_fov>
+                <image>
+                    <width>800</width>
+                    <height>800</height>
+                    <format>R8G8B8</format>
+                </image>
+                <clip>
+                    <near>0.02</near>
+                    <far>300</far>
+                </clip>
+                <noise>
+                    <type>gaussian</type>
+                    <!-- Noise is sampled independently per pixel on each frame.
+               That pixel's noise value is added to each of its color
+               channels, which at that point lie in the range [0,1]. -->
+                    <mean>0.0</mean>
+                    <stddev>0.007</stddev>
+                </noise>
+            </camera>
+            <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+                <alwaysOn>true</alwaysOn>
+                <updateRate>0.0</updateRate>
+                <cameraName>AGV04132/camera1</cameraName>
+                <imageTopicName>image_raw</imageTopicName>
+                <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+                <frameName>camera_Link</frameName>
+                <hackBaseline>0.07</hackBaseline>
+                <distortionK1>0.0</distortionK1>
+                <distortionK2>0.0</distortionK2>
+                <distortionK3>0.0</distortionK3>
+                <distortionT1>0.0</distortionT1>
+                <distortionT2>0.0</distortionT2>
+            </plugin>
+        </sensor>
+    </gazebo>
+	
+
+  <gazebo reference="fork_link">
+		<material>Gazebo/Black</material>
+	</gazebo>
+
+  <gazebo reference="right_support_link">
+		<material>Gazebo/Green</material>
+	</gazebo>
+
+  <gazebo reference="left_support_link">
+		<material>Gazebo/Green</material>
+	</gazebo>
+
+  <gazebo reference="left_smallwheel_link">
+		<material>Gazebo/Yellow</material>
+	</gazebo>
+
+  <gazebo reference="right_smallwheel_link">
+		<material>Gazebo/Yellow</material>
+	</gazebo>
+	<transmission name="left_driving_trans">
+		<type>transmission_interface/SimpleTransmission</type>
+		<actuator name="left_driving_motor">
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+		<joint name="left_actuated_wheel_joint">
+			<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+		</joint>
+	</transmission>
+
+  <transmission name="right_driving_trans">
+		<type>transmission_interface/SimpleTransmission</type>
+		<actuator name="right_driving_motor">
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+		<joint name="right_actuated_wheel_joint">
+			<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+		</joint>
+	</transmission>
+
+	<transmission name="fork_trans">
+		<type>transmission_interface/SimpleTransmission</type>
+		<actuator name="fork_motor">
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+		<joint name="fork_joint">
+			<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+		</joint>
+	</transmission>
+
+
+  <gazebo>
+		<plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+			<robotNamespace>/</robotNamespace>
+		</plugin>
+	</gazebo>
+
+  <gazebo>
+    <plugin name="joint_state_publisher" filename="libgazebo_ros_joint_state_publisher.so">
+      <alwaysOn>true</alwaysOn>
+      <updateRate>50</updateRate>
+      <jointName>left_smallwheel_joint,right_smallwheel_joint,right_support_joint,left_support_joint</jointName>
+    </plugin>
+  </gazebo>
+
+</robot>

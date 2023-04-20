@@ -1,0 +1,24 @@
+<!-- -->
+<launch>> 
+  <param name="car_linear_velocity_" type="double" value="0.5" /> <!--小车的线速度-->
+  <param name="car_angular_velocity_" type="double" value="0.3" /> <!--小车的角速度-->
+  <param name="is_loop_excution_" type="bool" value="true" /> <!--是否循环绕圈 true为是，false为否-->
+
+  <param name="Velocity_KP_A" type="double" value="0.1" /> 
+  <param name="Velocity_KI_A" type="double" value="0.35" />
+  <param name="Velocity_KD_A" type="double" value="0.05" />
+  <param name="Position_KP_A" type="double" value="0.5" />
+  <param name="Position_KI_A" type="double" value="0.0" />
+  <param name="Position_KD_A" type="double" value="0.5" />
+
+  <param name="Velocity_KP_B" type="double" value="0.15" />
+  <param name="Velocity_KI_B" type="double" value="0.35" />
+  <param name="Velocity_KD_B" type="double" value="0.05" />
+  <param name="Position_KP_B" type="double" value="0.5" />
+  <param name="Position_KI_B" type="double" value="0.0" />
+  <param name="Position_KD_B" type="double" value="0.5" />
+  
+  <node pkg="agv_robot" type="point2point" name="point2point" output="screen">
+  </node>       
+      
+</launch>

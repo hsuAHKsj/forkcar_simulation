@@ -1,0 +1,7 @@
+<!-- -->
+<launch>> 
+  <param name="is_loop_excution_" type="bool" value="false" /> <!--是否循环绕圈 true为是，false为否-->
+  <node pkg="agv_robot" type="pub_global_path" name="pub_global_path" output="screen">
+  </node>       
+      
+</launch>

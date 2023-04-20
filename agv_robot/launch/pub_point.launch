@@ -1,0 +1,6 @@
+<!-- -->
+<launch>> 
+  <node pkg="agv_robot" type="pub_point" name="pub_point" output="screen">
+  </node>       
+      
+</launch>
