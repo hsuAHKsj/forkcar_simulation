@@ -1,0 +1,71 @@
+<!-- -->
+<launch>
+    <param name="/use_sim_time" value="false" />
+    
+    <arg name="urdf_file" default="$(find xacro)/xacro --inorder '$(find AGV04132)/urdf/AGV04132.urdf'" />
+    <arg name="gui" default="false" />
+
+    <param name="robot_description" command="$(arg urdf_file)" />
+
+    <node name="arbotix" pkg="arbotix_python" type="arbotix_driver" output="screen">
+        <rosparam file="$(find agv_robot)/config/robot.yaml" command="load" />
+        <param name="sim" value="true"/>
+    </node>
+<!-- 
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+        <param name="use_gui" value="false"/>
+    </node>
+
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+        <param name="publish_frequency" type="double" value="20.0" />
+    </node> -->
+
+    <node pkg="map_server" name="map_server"  type="map_server" args="$(find agv_robot)/maps/map.yaml" />
+
+    <!-- move_base -->
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+      <rosparam file="$(find agv_robot)/param/costmap_common_params_burger.yaml" command="load" ns="global_costmap" />
+      <rosparam file="$(find agv_robot)/param/costmap_common_params_burger.yaml" command="load" ns="local_costmap" />
+      <rosparam file="$(find agv_robot)/param/local_costmap_params.yaml" command="load" />
+      <rosparam file="$(find agv_robot)/param/global_costmap_params.yaml" command="load" />
+      <rosparam file="$(find agv_robot)/param/move_base_params.yaml" command="load" />
+      <rosparam file="$(find agv_robot)/param/dwa_local_planner_params_burger.yaml" command="load" />
+    </node>
+
+    <node pkg="fake_localization" type="fake_localization" name="fake_localization" output="screen" />
+
+    <node pkg="tf" type="static_transform_publisher" name="map_odom_broadcaster" args="0 0 0 0 0 0 /map /odom 100" />
+
+    <node pkg="tf" type="static_transform_publisher" name="map_laser_broadcaster" args="0 0 0 0 0 0 /map /laser 100" />
+
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find agv_robot)/rviz/navigation.rviz" required="true" />
+
+    <include file="$(find AGV04132)/launch/forklift_gazebo_lidar.launch"/>
+    <rosparam command="load"
+                file="$(find AGV04132)/config/joints.yaml"
+                  ns="forklift_joint_state_controller" />
+    <rosparam command="load"
+                file="$(find AGV04132)/config/fork.yaml"
+                  ns="forklift_fork_controller" />
+    <rosparam command="load"
+                file="$(find AGV04132)/config/driving1.yaml"
+                  ns="forklift_drive_controller" />
+
+
+    <!--spawner-->
+    <!--controller_manager node-->
+    <node name="forklift_controller_spawner" 
+          pkg="controller_manager" 
+          type="spawner"
+          args="forklift_joint_state_controller
+                forklift_fork_controller
+                forklift_drive_controller"/>
+                
+    <node name="rqt_robot_steering" 
+          pkg="rqt_robot_steering"
+          type="rqt_robot_steering">
+
+      <param name="default_topic" 
+            value="/forklift_drive_controller/cmd_vel/"/>
+    </node>
+</launch>

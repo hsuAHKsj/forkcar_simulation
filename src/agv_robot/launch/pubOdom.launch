@@ -1,0 +1,7 @@
+<!-- -->
+<launch>
+
+  <node pkg="agv_robot" type="pubOdom" name="pubOdom">
+  </node>       
+      
+</launch>

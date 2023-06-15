@@ -1,1 +1,0 @@
-controller_joint_names: ['left_actuated_wheel_joint', 'right_actuated_wheel_joint', 'fork_joint', 'left_support_joint', 'left_smallwheel_joint', 'right_support_joint', 'right_smallwheel_joint', ]
