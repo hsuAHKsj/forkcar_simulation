@@ -1,2 +1,0 @@
-agv_robot
--DCATKIN_DEVEL_PREFIX=/home/huang/Desktop/BL_fork/forkcar_simulation/devel -DCMAKE_INSTALL_PREFIX=/home/huang/Desktop/BL_fork/forkcar_simulation/install -G Unix Makefiles
