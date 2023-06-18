@@ -21,6 +21,7 @@ namespace PurePursuitNS
     global_path_sub_ = nh_.subscribe("/global_path", 1, &PurePursuit::globalPathCallback, this);
     odom_sub_ = nh_.subscribe("/odom", 10, &PurePursuit::odomCallback, this);
     scan_sub_ = nh_.subscribe("/scan", 20, &PurePursuit::scanCallback, this);//雷达回调
+    head_direction_sub_ = nh_.subscribe("/is_Head_Revert", 1, &PurePursuit::headCallback, this);
     if(is_use_detour_)
     {
         sim_obstacle_sub_ = nh_.subscribe("/sim_obstacle", 1, &PurePursuit::simObstacleCallback, this);
@@ -40,6 +41,7 @@ namespace PurePursuitNS
     preview_dis_ = k_ * car_linear_velocity_ + preview_distance_;
     point_num_ = 0;  //保存路径点的个数
     target_index_ = point_num_ - 1;
+    defaultHead = true;
 
     //雷达避障碍参数
     x_pillar_ = 0.0;//机器人距离物体在X轴上的距离
@@ -60,13 +62,51 @@ namespace PurePursuitNS
   //计算发送给模型车的转角
   void PurePursuit::odomCallback(const nav_msgs::Odometry &msg) 
   {
-    current_pose_x_ = msg.pose.pose.position.x;
-    current_pose_y_ = msg.pose.pose.position.y;
-    current_pose_yaw_ = M_PI + tf::getYaw(msg.pose.pose.orientation);
+      ros::Time current_timestamp = msg.header.stamp;
+      current_pose_x_ = msg.pose.pose.position.x;
+      current_pose_y_ = msg.pose.pose.position.y;
+      if(defaultHead == true){
+          current_pose_yaw_ = M_PI + tf::getYaw(msg.pose.pose.orientation);
+      }
+      else{
+          current_pose_yaw_ = tf::getYaw(msg.pose.pose.orientation);
+      }
+      
+      // 检查是否是第一个时间点，如果是，则仅保存当前时间戳和位置
+      if (previous_timestamp.isZero()) {
+          previous_timestamp = current_timestamp;
+          previous_pose_x = current_pose_x_;
+          previous_pose_y = current_pose_y_;
+          previous_pose_yaw = current_pose_yaw_;
+          return;
+      }
 
-    current_velocity_ = msg.twist.twist;
+      // 计算时间间隔
+      double dt = (current_timestamp - previous_timestamp).toSec();
 
-    is_current_pose_sub_ = true;
+      // 计算位置差异
+      double delta_x = current_pose_x_ - previous_pose_x;
+      double delta_y = current_pose_y_ - previous_pose_y;
+
+      // 计算角速度
+      double delta_yaw = current_pose_yaw_ - previous_pose_yaw;
+      double angular_velocity = delta_yaw / dt;
+
+      // 计算线速度
+      double linear_velocity = sqrt(delta_x * delta_x + delta_y * delta_y) / dt;
+
+      // 更新先前的时间戳和位置
+      previous_timestamp = current_timestamp;
+      previous_pose_x = current_pose_x_;
+      previous_pose_y = current_pose_y_;
+      previous_pose_yaw = current_pose_yaw_;
+    
+      // current_velocity_.;
+
+      current_velocity_.angular.z = angular_velocity; // 设置角速度
+      current_velocity_.linear.x = linear_velocity; // 设置线速度
+
+      is_current_pose_sub_ = true;
   }
 
   void PurePursuit::globalPathCallback(const nav_msgs::Path &msg) 
@@ -211,6 +251,20 @@ namespace PurePursuitNS
 
     return index;
   }
+
+  void PurePursuit::headCallback(const std_msgs::Int32ConstPtr &msg)
+  {
+      int isRvertHead = msg->data;
+      if(isRvertHead == 1)
+      {
+          defaultHead = false;
+      }
+      else if(isRvertHead == 0)
+      {
+          defaultHead = true;
+      }
+  };
+
 
   inline double PurePursuit::thetaLimit(double yaw)//角度限制 0~180度，-180度~0
   {
@@ -479,11 +533,11 @@ namespace PurePursuitNS
       vel_msg.linear.x = 0.0;
       if(curvature_k >= 0.0)//区分往左边还是往右边掉头
       {
-        vel_msg.angular.z = car_angular_velocity_;
+        vel_msg.angular.z = current_velocity_.angular.z * 0.6 + car_angular_velocity_ * 0.4;
       }
       else
       {
-        vel_msg.angular.z = -car_angular_velocity_;
+        vel_msg.angular.z = current_velocity_.angular.z * 0.6 -car_angular_velocity_* 0.4;
       }
       cmd_vel_pub_.publish(vel_msg); 
     }
@@ -505,7 +559,11 @@ namespace PurePursuitNS
           {
             //增加串级PID控制线速度
             double motor = Position_PID(-dis_pos, 0.0);//小车当前位置到目标位置的距离，距离逐渐增加
-            vel_msg.linear.x = -Incremental_PI(current_velocity_.linear.x, motor);
+            double sign;
+            if(defaultHead == true) sign = -1;
+            else if(defaultHead == false) sign = 1;
+
+            vel_msg.linear.x = sign * Incremental_PI(current_velocity_.linear.x, motor);
             std::cout << "小车线速度 " << vel_msg.linear.x << std::endl;
             vel_msg.angular.z = theta;
             cmd_vel_pub_.publish(vel_msg);
@@ -616,6 +674,15 @@ namespace PurePursuitNS
 
         is_current_pose_sub_ = false;
       } 
+
+      static int stop_count = 0;
+      if (car_state_ == CAR_STOP)
+      {
+          stop_count ++;
+          if(stop_count > 10) break;
+      }else{
+        stop_count = 0;
+      }
 
       ros::spinOnce();
       loop_rate.sleep();

@@ -52,11 +52,13 @@ namespace PurePursuitNS
       ros::Subscriber odom_sub_;
       ros::Subscriber scan_sub_;
       ros::Subscriber sim_obstacle_sub_;
+      ros::Subscriber head_direction_sub_;
 
       ros::Publisher cmd_vel_pub_;
 
       void initial();
       void globalPathCallback(const nav_msgs::Path &msg);
+      void headCallback(const std_msgs::Int32ConstPtr &msg);
       void odomCallback(const nav_msgs::Odometry &msg);
       void scanCallback(const sensor_msgs::LaserScanConstPtr &msg); //雷达回调
       void simObstacleCallback(const std_msgs::Int32ConstPtr& msg);//仿真障碍物回调
@@ -87,6 +89,12 @@ namespace PurePursuitNS
       double current_pose_x_;
       double current_pose_y_;
       double current_pose_yaw_;
+
+      ros::Time previous_timestamp;
+      double previous_pose_x;
+      double previous_pose_y;
+      double previous_pose_yaw;
+
 
       int point_num_;  //保存路径点的个数
       int target_index_;
@@ -135,6 +143,8 @@ namespace PurePursuitNS
       double Position_KP; 
       double Position_KI; 
       double Position_KD;//位置PID系数  
+
+      bool defaultHead;
 
       bool is_use_detour_;//是否使用绕障   
   };
